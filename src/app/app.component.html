@@ -304,8 +304,8 @@
   />
   <span>Welcome</span>
     <div class="spacer"></div>
-  <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
-    
+  <a aria-label="Angular on twitter"  rel="noopener" href="" (click)="newName()" title="Twitter">
+    <p style="color: #c2c3c4;font-size: 10px">{{loggedUserName}}</p>
     <svg id="twitter-logo" height="24" data-name="Logo — FIXED" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
       <defs>
         <style>
@@ -327,7 +327,7 @@
 </div>
 
 <div class="content" role="main">
-
+  <button mat-stroked-button color="accent" class="btn-block" (click)="newName()">Log in</button>
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">
 
