@@ -7,3 +7,7 @@ table {
   .mat-cell {
     padding: 18px 180px 18px 0;
   }
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }

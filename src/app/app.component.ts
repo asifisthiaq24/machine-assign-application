@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { GlobalVariablesService } from './global-variables.service'
+import { OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 export interface PeriodicElement {
   name: string;
@@ -29,8 +33,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 export class AppComponent {
+  // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  // dataSource = ELEMENT_DATA;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   title = 'ComponentTestingA8';
   loggedUserName:any = '';
   constructor(private _gvs:GlobalVariablesService){
@@ -38,6 +47,8 @@ export class AppComponent {
   }
   ngOnInit(){
     this.loggedUserName = this._gvs.getLoggedUserName()
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
   newName(){
     if(this._gvs.getLoggedUserName() == 'Welcome, Isthiaq'){
@@ -49,5 +60,8 @@ export class AppComponent {
       this.loggedUserName = this._gvs.getLoggedUserName()
     }
 
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
