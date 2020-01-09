@@ -15,7 +15,7 @@ table {
 
   fieldset {
     font-family: sans-serif;
-    border: 5px solid #2d3438;
+    border: 4px solid #d2d5d9;
     /* border: 5px solid #1F497D; */
     background: #fff;
     border-radius: 5px;
@@ -23,8 +23,8 @@ table {
 }
 
 fieldset legend {
-    background: #2d3438;
-    color: #fff;
+    background: #d2d5d9;
+    color: #2d3438;
     padding: 5px 10px ;
     font-size: 32px;
     border-radius: 5px;
