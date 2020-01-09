@@ -382,10 +382,10 @@ mat-mini-fab -->
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element" class="action-link" style="min-width: 104px !important;">
               <!-- <a href="" title="Edit"><i class="fas fa-edit"></i></a>  <a href="" ><i class="fa fa-trash" title="Delete" ></i></a> -->
-              <button mat-mini-fab color="primary" title="Edit" routerLink="/base/editUserDetails/{{element.userid}}">
+              <button mat-mini-fab color="primary" matTooltip="Edit"  routerLink="/base/editUserDetails/{{element.userid}}">
                 <mat-icon>edit</mat-icon>
               </button> &nbsp;
-              <button mat-mini-fab color="warn" title="Delete" routerLink="/base/editUserDetails/{{element.userid}}">
+              <button mat-mini-fab color="warn" matTooltip="Delete" routerLink="/base/editUserDetails/{{element.userid}}">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
