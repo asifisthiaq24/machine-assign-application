@@ -11,3 +11,23 @@ table {
     font-size: 14px;
     width: 100%;
   }
+
+
+  fieldset {
+    font-family: sans-serif;
+    border: 5px solid #2d3438;
+    /* border: 5px solid #1F497D; */
+    background: #fff;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+fieldset legend {
+    background: #2d3438;
+    color: #fff;
+    padding: 5px 10px ;
+    font-size: 32px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 5px #fff;
+    margin-left: 20px;
+}
