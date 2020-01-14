@@ -93,7 +93,7 @@
                                 <div class="input-group">
                                     <input matInput [formControl]="dateFormControl" [errorStateMatcher]="matcher"
                                         class="form-control" placeholder="Activated Date" name="dp"
-                                        (dateSelect)="changeEvent($event)" [(ngModel)]="model" ngbDatepicker
+                                        (dateSelect)="changeEvent()" [(ngModel)]="model" ngbDatepicker
                                         #d="ngbDatepicker">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary calendar" (click)="d.toggle();"
@@ -108,7 +108,7 @@
                         <div class="md-form mb-5">
                             <mat-form-field>
                                 <mat-label>Schedule</mat-label>
-                                <select (change)="changeSchedule($event)" [formControl]="scheduleFormControl"
+                                <select (change)="changeSchedule()" [formControl]="scheduleFormControl"
                                     [errorStateMatcher]="matcher" matNativeControl [(ngModel)]="selectedSchedule"
                                     name="schedule">
                                     <!-- <option value="" selected>--Select--</option> -->
