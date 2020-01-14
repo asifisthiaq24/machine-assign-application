@@ -13,7 +13,6 @@ import { FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ElementRef } from '@angular/core';
-import { Observable } from 'rxjs';
 
 //select
 export interface Role {
@@ -36,14 +35,13 @@ export interface UserI {
 }
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
-  providers: []
+  selector: 'app-operator-list',
+  templateUrl: './operator-list.component.html',
+  styleUrls: ['./operator-list.component.css']
 })
-export class HomePageComponent implements OnInit {
+export class OperatorListComponent implements OnInit {
+
   isAdmin:boolean=false;
-  isOperator:boolean=false;
   animal: string;
   name: string;
   welcomeMsg: any = '';
@@ -51,7 +49,7 @@ export class HomePageComponent implements OnInit {
   message: string;
   helloMsg:string;
   //table
-  displayedColumns2: string[] = ['username', 'email','action'];
+  displayedColumns2: string[] = ['username', 'email', '_id', 'action'];
   dataSource2;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -74,9 +72,6 @@ export class HomePageComponent implements OnInit {
       if(data.role=='admin'){
         this.isAdmin = true;
       }
-      else if(data.role == 'operator'){
-        this.isOperator = true;
-      }
     }, (err) => { console.log(err) })
     let accessToken = localStorage.getItem('accessToken')
     let httpOptions = {
@@ -91,7 +86,7 @@ export class HomePageComponent implements OnInit {
       console.log('access token dia login hoise')
       //-----
       if (this.auth_bol) {
-        let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
+        let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/operator/', httpOptions)
         resp_get.subscribe((data:any) => {
           console.log('from access token')
           console.log(data);
@@ -120,7 +115,7 @@ export class HomePageComponent implements OnInit {
           console.log('refresh token dia login hoise')
           //-----
           if (this.auth_bol) {
-            let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
+            let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/operator/', httpOptions)
             resp_get.subscribe((data:any) => {
               console.log('from refresh token')
               console.log(data);
@@ -168,7 +163,7 @@ export class HomePageComponent implements OnInit {
   ]);
   matcher = new MyErrorStateMatcher();
   //select role
-  selectedRole: string = 'admin';
+  selectedRole: string = 'operator';
 
   roles: Role[] = [
     { value: 'admin', viewValue: 'Admin' },
@@ -236,7 +231,7 @@ export class HomePageComponent implements OnInit {
   ]);
   //matcher = new MyErrorStateMatcher();
   //select role
-  selectedRoleE: string = 'admin';
+  selectedRoleE: string = 'operator';
 
   rolesE: Role[] = [
     { value: 'admin', viewValue: 'Admin' },
@@ -316,6 +311,7 @@ export class HomePageComponent implements OnInit {
         }
       }
       else {
+        console.log('----------akhane dhukse email check er jonno')
         if (this.emailE != undefined && this.usernameE != undefined
           && !this.emailEFormControl.hasError('email')
           && !this.usernameEFormControl.hasError('pattern')) {
@@ -324,6 +320,7 @@ export class HomePageComponent implements OnInit {
             console.log(data);
             this.alreadyExistsE = data.found;
             if (!this.alreadyExistsE) {
+
               let resp_post_submit_edit = this.http.patch('http://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: 'empty', email: this.emailE, role: this.selectedRoleE })
               resp_post_submit_edit.subscribe((data) => {
                 this.usernameE = null;
@@ -348,7 +345,7 @@ export class HomePageComponent implements OnInit {
   tempID: string;
   getValueForEdit(_id) {
     this.alreadyExistsE=false;
-    let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/getuser', { id: _id, role: 'admin' })
+    let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/getuser', { id: _id, role: 'operator' })
     resp_post.subscribe((data) => {
       this.usernameE = data[0].username;
       this.tempUsername = data[0].email;
@@ -363,9 +360,5 @@ export class HomePageComponent implements OnInit {
       console.log(data);
       this.userAuthorization();
     }, (err) => { console.log(err) })
-  }
-  status(){
-    if(this.isAdmin==false && this.isOperator==false) return false;
-    else return true;
   }
 }
