@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { GlobalVariablesService } from '../global-variables.service'
 
 @Component({
   selector: 'app-login',
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
   welcomeMsg:any='';
   message:string;
 
-  constructor(private http:HttpClient,private router: Router,private _gvs:GlobalVariablesService) { }
+  constructor(private http:HttpClient,private router: Router) { }
   ngOnInit() { 
   }
   logIn(){

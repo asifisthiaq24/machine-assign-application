@@ -2,13 +2,13 @@
     <div [hidden]="!auth_bol">
         <div class="sidenav">
             <p>Welcome,<strong>{{helloMsg}}</strong></p>
-            <a href="/home" class="text-style">Home</a>
+            <a routerLink="/home" class="text-style">Home</a>
             <hr>
-            <a href="/operatorlist" class="text-style">Operator List</a>
+            <a routerLink="/operatorlist" class="text-style">Operator List</a>
             <hr>
-            <a href="/machinelist" class="text-style">Machine List</a>
+            <a routerLink="/machinelist" class="text-style">Machine List</a>
             <hr>
-            <a href="/mao" class="text-style">Machine assigned to operator list</a>
+            <a routerLink="/mao" class="text-style">Machine assigned to operator list</a>
             <hr>
             <a href="#" class="text-style" style="color: red;" (click)="logOut()">Logout</a>
         </div>

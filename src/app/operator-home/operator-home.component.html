@@ -1,7 +1,7 @@
 <div [hidden]="!auth_bol">
     <div class="sidenav">
         <p>Welcome,<strong>{{helloMsg}}</strong></p>
-        <a href="/home" class="text-style">Home</a>
+        <a routerLink="/home"  class="text-style">Home</a>
         <hr>
         <!-- <button (click)="getValueForEdit(); cngPass.checked = false" style="text-align: left;min-width:180px;" class="text-style" mat-button 
         data-toggle="modal" data-target="#modalRegisterFormEdit">
