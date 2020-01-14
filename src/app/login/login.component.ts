@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() { 
   }
   logIn(){
-    let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/',{"username":this.username,"password":this.password})
+    let resp_post = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/',{"username":this.username,"password":this.password})
     resp_post.subscribe((data:any)=>{
       this.loginMessage = data.message;
       if(this.loginMessage == 'Login successful.'){

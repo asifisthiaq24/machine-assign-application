@@ -66,7 +66,7 @@ export class OperatorListComponent implements OnInit {
     this.userAuthorization();
   }
   userAuthorization() {
-    let resp_get_role = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/getrole/'+localStorage.getItem('uid'))
+    let resp_get_role = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/getrole/'+localStorage.getItem('uid'))
     resp_get_role.subscribe((data:any) => {
       console.log(data);
       if(data.role=='admin'){
@@ -80,13 +80,13 @@ export class OperatorListComponent implements OnInit {
         'authorization': 'Asif ' + accessToken
       })
     };
-    let resp_get_act = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
+    let resp_get_act = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
     resp_get_act.subscribe((data) => {
       this.auth_bol = true;
       console.log('access token dia login hoise')
       //-----
       if (this.auth_bol) {
-        let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/operator/', httpOptions)
+        let resp_get = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/operator/', httpOptions)
         resp_get.subscribe((data:any) => {
           console.log('from access token')
           console.log(data);
@@ -99,7 +99,7 @@ export class OperatorListComponent implements OnInit {
     }, (err) => {
       console.log(err.statusText)
       const refreshToken = localStorage.getItem('refreshToken')
-      let resp_post_rft = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/token', { token: refreshToken })
+      let resp_post_rft = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/token', { token: refreshToken })
       resp_post_rft.subscribe((data:any) => {
         accessToken = data.accessToken;
         localStorage.setItem('accessToken', accessToken);
@@ -109,13 +109,13 @@ export class OperatorListComponent implements OnInit {
             'authorization': 'Asif ' + accessToken
           })
         };
-        let resp_get_act2 = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
+        let resp_get_act2 = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
         resp_get_act2.subscribe((data) => {
           this.auth_bol = true;
           console.log('refresh token dia login hoise')
           //-----
           if (this.auth_bol) {
-            let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/operator/', httpOptions)
+            let resp_get = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/operator/', httpOptions)
             resp_get.subscribe((data:any) => {
               console.log('from refresh token')
               console.log(data);
@@ -183,12 +183,12 @@ export class OperatorListComponent implements OnInit {
       && !this.emailFormControl.hasError('email')
       && !this.usernameFormControl.hasError('pattern')
       && !this.passwordFormControl.hasError('pattern')) {
-      let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/emailvalidation', { email: this.email })
+      let resp_post = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/emailvalidation', { email: this.email })
       resp_post.subscribe((data:any) => {
         console.log(data);
         this.alreadyExists = data.found;
         if (!this.alreadyExists) {
-          let resp_post_submit = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/insert', { username: this.username, password: this.password, email: this.email, role: this.selectedRole })
+          let resp_post_submit = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/insert', { username: this.username, password: this.password, email: this.email, role: this.selectedRole })
           resp_post_submit.subscribe((data) => {
             this.username = null;
             this.password = null;
@@ -253,7 +253,7 @@ export class OperatorListComponent implements OnInit {
           && !this.emailEFormControl.hasError('email')
           && !this.usernameEFormControl.hasError('pattern')
           && !this.passwordEFormControl.hasError('pattern')) {
-          let resp_post_submit_edit = this.http.patch('http://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: this.passwordE, email: this.emailE, role: this.selectedRoleE, id: this.tempID })
+          let resp_post_submit_edit = this.http.patch('https://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: this.passwordE, email: this.emailE, role: this.selectedRoleE, id: this.tempID })
           resp_post_submit_edit.subscribe((data) => {
             this.usernameE = null;
             this.passwordE = null;
@@ -271,12 +271,12 @@ export class OperatorListComponent implements OnInit {
           && !this.emailEFormControl.hasError('email')
           && !this.usernameEFormControl.hasError('pattern')
           && !this.passwordEFormControl.hasError('pattern')) {
-          let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/emailvalidation', { email: this.emailE })
+          let resp_post = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/emailvalidation', { email: this.emailE })
           resp_post.subscribe((data:any) => {
             console.log(data);
             this.alreadyExistsE = data.found;
             if (!this.alreadyExistsE) {
-              let resp_post_submit_edit = this.http.patch('http://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: this.passwordE, email: this.emailE, role: this.selectedRoleE })
+              let resp_post_submit_edit = this.http.patch('https://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: this.passwordE, email: this.emailE, role: this.selectedRoleE })
               resp_post_submit_edit.subscribe((data) => {
                 this.usernameE = null;
                 this.passwordE = null;
@@ -297,7 +297,7 @@ export class OperatorListComponent implements OnInit {
         if (this.emailE != undefined && this.usernameE != undefined
           && !this.emailEFormControl.hasError('email')
           && !this.usernameEFormControl.hasError('pattern')) {
-          let resp_post_submit_edit = this.http.patch('http://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: 'empty', email: this.emailE, role: this.selectedRoleE, id: this.tempID })
+          let resp_post_submit_edit = this.http.patch('https://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: 'empty', email: this.emailE, role: this.selectedRoleE, id: this.tempID })
           resp_post_submit_edit.subscribe((data) => {
             this.usernameE = null;
             this.passwordE = null;
@@ -315,13 +315,13 @@ export class OperatorListComponent implements OnInit {
         if (this.emailE != undefined && this.usernameE != undefined
           && !this.emailEFormControl.hasError('email')
           && !this.usernameEFormControl.hasError('pattern')) {
-          let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/emailvalidation', { email: this.emailE })
+          let resp_post = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/emailvalidation', { email: this.emailE })
           resp_post.subscribe((data:any) => {
             console.log(data);
             this.alreadyExistsE = data.found;
             if (!this.alreadyExistsE) {
 
-              let resp_post_submit_edit = this.http.patch('http://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: 'empty', email: this.emailE, role: this.selectedRoleE })
+              let resp_post_submit_edit = this.http.patch('https://nodejs-mongo-server-asif.herokuapp.com/login/updateuser/' + this.tempID, { username: this.usernameE, password: 'empty', email: this.emailE, role: this.selectedRoleE })
               resp_post_submit_edit.subscribe((data) => {
                 this.usernameE = null;
                 this.passwordE = null;
@@ -345,7 +345,7 @@ export class OperatorListComponent implements OnInit {
   tempID: string;
   getValueForEdit(_id) {
     this.alreadyExistsE=false;
-    let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/getuser', { id: _id, role: 'operator' })
+    let resp_post = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/getuser', { id: _id, role: 'operator' })
     resp_post.subscribe((data) => {
       this.usernameE = data[0].username;
       this.tempUsername = data[0].email;
@@ -355,7 +355,7 @@ export class OperatorListComponent implements OnInit {
     }, (err) => { console.log(err) })
   }
   delete_user(_id) {
-    let resp_post = this.http.delete('http://nodejs-mongo-server-asif.herokuapp.com/login/deleteuser/'+_id)
+    let resp_post = this.http.delete('https://nodejs-mongo-server-asif.herokuapp.com/login/deleteuser/'+_id)
     resp_post.subscribe((data) => {
       console.log(data);
       this.userAuthorization();

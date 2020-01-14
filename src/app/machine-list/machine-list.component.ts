@@ -64,7 +64,7 @@ export class MachineListComponent implements OnInit {
   ngOnInit() {
     this.helloMsg = ' ' + localStorage.getItem('uname')
     this.userAuthorization();
-    //let x = this.http.get<UserI[]>("http://nodejs-mongo-server-asif.herokuapp.com/login/").pipe(tap(console.log));
+    //let x = this.http.get<UserI[]>("https://nodejs-mongo-server-asif.herokuapp.com/login/").pipe(tap(console.log));
     // let accessToken = localStorage.getItem('accessToken')
     // let httpOptions = {
     //   headers: new HttpHeaders({
@@ -72,7 +72,7 @@ export class MachineListComponent implements OnInit {
     //     'authorization': 'Asif ' + accessToken
     //   })
     // };
-    // let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/',httpOptions)
+    // let resp_get = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/',httpOptions)
     // resp_get.subscribe((data) => {
     //   console.log(data);
     //   this.dataSource2 = new MatTableDataSource<UserI>(data);
@@ -81,7 +81,7 @@ export class MachineListComponent implements OnInit {
     // }, (err) => { console.log(err) })
   }
   userAuthorization() {
-    let resp_get_role = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/getrole/' + localStorage.getItem('uid'))
+    let resp_get_role = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/getrole/' + localStorage.getItem('uid'))
     resp_get_role.subscribe((data:any) => {
       console.log(data);
       if (data.role == 'admin') {
@@ -95,13 +95,13 @@ export class MachineListComponent implements OnInit {
         'authorization': 'Asif ' + accessToken
       })
     };
-    let resp_get_act = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
+    let resp_get_act = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
     resp_get_act.subscribe((data) => {
       this.auth_bol = true;
       console.log('access token dia login hoise')
       //-----
       if (this.auth_bol) {
-        let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/machine/', httpOptions)
+        let resp_get = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/machine/', httpOptions)
         resp_get.subscribe((data:any) => {
           console.log('from access token')
           console.log(data);
@@ -114,7 +114,7 @@ export class MachineListComponent implements OnInit {
     }, (err) => {
       console.log(err.statusText)
       const refreshToken = localStorage.getItem('refreshToken')
-      let resp_post_rft = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/token', { token: refreshToken })
+      let resp_post_rft = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/token', { token: refreshToken })
       resp_post_rft.subscribe((data:any) => {
         accessToken = data.accessToken;
         localStorage.setItem('accessToken', accessToken);
@@ -124,13 +124,13 @@ export class MachineListComponent implements OnInit {
             'authorization': 'Asif ' + accessToken
           })
         };
-        let resp_get_act2 = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
+        let resp_get_act2 = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/', httpOptions)
         resp_get_act2.subscribe((data) => {
           this.auth_bol = true;
           console.log('refresh token dia login hoise')
           //-----
           if (this.auth_bol) {
-            let resp_get = this.http.get('http://nodejs-mongo-server-asif.herokuapp.com/login/machine/', httpOptions)
+            let resp_get = this.http.get('https://nodejs-mongo-server-asif.herokuapp.com/login/machine/', httpOptions)
             resp_get.subscribe((data:any) => {
               console.log('from refresh token')
               console.log(data);
@@ -171,7 +171,7 @@ export class MachineListComponent implements OnInit {
   alreadyExists: boolean = false;
   onSubmitModalForm() {
     if (this.mname != undefined) {
-      let resp_post_submit = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/addmachine', { name: this.mname })
+      let resp_post_submit = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/addmachine', { name: this.mname })
       resp_post_submit.subscribe((data) => {
         this.mname = null;
         this.modalRegisterForm.nativeElement.click();
@@ -204,7 +204,7 @@ export class MachineListComponent implements OnInit {
   alreadyExistsE: boolean = false;
   onSubmitModalFormEdit() {
     if (this.mnameE != undefined && this.mnameE != '') {
-      let resp_post_submit_edit = this.http.patch('http://nodejs-mongo-server-asif.herokuapp.com/login/updatemachine/' + this.tempID, { name: this.mnameE })
+      let resp_post_submit_edit = this.http.patch('https://nodejs-mongo-server-asif.herokuapp.com/login/updatemachine/' + this.tempID, { name: this.mnameE })
       resp_post_submit_edit.subscribe((data) => {
         this.mnameE = null;
         this.tempUsername = null;
@@ -223,14 +223,14 @@ export class MachineListComponent implements OnInit {
   getValueForEdit(_id) {
     console.log(_id)
     this.alreadyExistsE = false;
-    let resp_post = this.http.post('http://nodejs-mongo-server-asif.herokuapp.com/login/getmachine', { id: _id })
+    let resp_post = this.http.post('https://nodejs-mongo-server-asif.herokuapp.com/login/getmachine', { id: _id })
     resp_post.subscribe((data) => {
       this.mnameE = data[0].name;
       this.tempID = _id;
     }, (err) => { console.log(err) })
   }
   delete_user(_id) {
-    let resp_post = this.http.delete('http://nodejs-mongo-server-asif.herokuapp.com/login/deletemachine/' + _id)
+    let resp_post = this.http.delete('https://nodejs-mongo-server-asif.herokuapp.com/login/deletemachine/' + _id)
     resp_post.subscribe((data) => {
       console.log(data);
       this.userAuthorization();
